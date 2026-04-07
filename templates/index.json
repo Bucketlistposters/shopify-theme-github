@@ -137,17 +137,6 @@
         "padding_bottom": 36
       }
     },
-    "custom_liquid_WDpqJi": {
-      "type": "custom-liquid",
-      "custom_css": [],
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<valued-widget layout=\"reviews\" size=\"medium\" align=\"center\" theme=\"dark\" amount=\"4\" height=\"default\"></valued-widget>",
-        "color_scheme": "scheme-1",
-        "padding_top": 100,
-        "padding_bottom": 100
-      }
-    },
     "ugc_videos_RdxXdx": {
       "type": "ugc-videos",
       "blocks": {
@@ -155,24 +144,46 @@
           "type": "video",
           "settings": {
             "video": "shopify://files/videos/admin-69539dfa77a26.mp4",
+            "video_url": "",
+            "show_stars": false,
+            "star_count": 5,
+            "review_text": "",
+            "product": "",
             "author": ""
           }
         },
         "video_fxrJMR": {
           "type": "video",
           "settings": {
+            "video": "shopify://files/videos/admin-69a5af75cc46f.mp4",
+            "video_url": "",
+            "show_stars": false,
+            "star_count": 5,
+            "review_text": "",
+            "product": "",
             "author": ""
           }
         },
         "video_WUL3cj": {
           "type": "video",
           "settings": {
+            "video": "shopify://files/videos/2025-12-06-091227399.mp4",
+            "video_url": "",
+            "show_stars": false,
+            "star_count": 5,
+            "review_text": "",
+            "product": "",
             "author": ""
           }
         },
         "video_qRWWBj": {
           "type": "video",
           "settings": {
+            "video_url": "",
+            "show_stars": false,
+            "star_count": 5,
+            "review_text": "",
+            "product": "",
             "author": ""
           }
         }
@@ -188,25 +199,34 @@
         "heading": "Onze community",
         "heading_size": "h1",
         "subheading": "Bekijk hoe onze klanten onze producten gebruiken",
-        "heading_alignment": "center",
-        "columns_desktop": 4,
-        "columns_mobile": "2",
+        "heading_alignment": "left",
+        "card_width_desktop": 19,
+        "card_width_mobile": 55,
         "gap": 16,
         "gap_mobile": 8,
-        "aspect_ratio": 165,
         "border_radius": 12,
-        "muted": true,
         "loop": true,
         "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "custom_liquid_WDpqJi": {
+      "type": "custom-liquid",
+      "custom_css": [],
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<valued-widget layout=\"reviews\" size=\"medium\" align=\"center\" theme=\"dark\" amount=\"4\" height=\"default\"></valued-widget>",
+        "color_scheme": "scheme-1",
+        "padding_top": 100,
+        "padding_bottom": 100
       }
     }
   },
   "order": [
     "ss_parallax_banner_8Fw9Vf",
     "featured_collection",
-    "custom_liquid_WDpqJi",
-    "ugc_videos_RdxXdx"
+    "ugc_videos_RdxXdx",
+    "custom_liquid_WDpqJi"
   ]
 }
