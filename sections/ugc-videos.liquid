@@ -5,154 +5,122 @@
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
-
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
-
-  .ugc-videos-{{ section.id }} {
-    overflow: hidden;
-  }
-
-  .ugc-videos-{{ section.id }} .ugc-title-wrapper {
+  .ugc-{{ section.id }} { overflow: hidden; }
+  .ugc-{{ section.id }} .ugc-title-wrapper {
     text-align: {{ section.settings.heading_alignment }};
-    margin-bottom: 2rem;
+    padding: 0 1.5rem;
+    margin-bottom: 1.5rem;
   }
-
-  .ugc-videos-{{ section.id }} .ugc-heading {
-    margin: 0;
-    font-size: inherit;
-  }
-
-  .ugc-videos-{{ section.id }} .ugc-subheading {
-    margin: 0.5rem 0 0;
-    opacity: 0.7;
-  }
-
-  .ugc-videos-{{ section.id }} .ugc-grid {
-    display: grid;
-    grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
-    gap: {{ section.settings.gap_mobile }}px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
   @media screen and (min-width: 750px) {
-    .ugc-videos-{{ section.id }} .ugc-grid {
-      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
-      gap: {{ section.settings.gap }}px;
-    }
+    .ugc-{{ section.id }} .ugc-title-wrapper { padding: 0 5rem; margin-bottom: 2rem; }
   }
-
-  .ugc-videos-{{ section.id }} .ugc-video-item {
+  .ugc-{{ section.id }} .ugc-heading { margin: 0; }
+  .ugc-{{ section.id }} .ugc-subheading { margin: 0.4rem 0 0; opacity: 0.65; font-size: 15px; }
+  .ugc-{{ section.id }} .ugc-slider-wrapper { position: relative; }
+  .ugc-{{ section.id }} .ugc-track {
+    display: flex;
+    gap: {{ section.settings.gap_mobile }}px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 1.5rem;
+  }
+  .ugc-{{ section.id }} .ugc-track::-webkit-scrollbar { display: none; }
+  @media screen and (min-width: 750px) {
+    .ugc-{{ section.id }} .ugc-track { gap: {{ section.settings.gap }}px; padding: 0 5rem; }
+  }
+  .ugc-{{ section.id }} .ugc-card {
+    flex: 0 0 {{ section.settings.card_width_mobile }}vw;
+    scroll-snap-align: start;
     position: relative;
     border-radius: {{ section.settings.border_radius }}px;
     overflow: hidden;
     background: #000;
+    aspect-ratio: 9 / 16;
   }
-
-  .ugc-videos-{{ section.id }} .ugc-video-item::before {
-    content: '';
-    display: block;
-    padding-bottom: {{ section.settings.aspect_ratio }}%;
+  @media screen and (min-width: 750px) {
+    .ugc-{{ section.id }} .ugc-card { flex: 0 0 {{ section.settings.card_width_desktop }}vw; }
   }
-
-  .ugc-videos-{{ section.id }} .ugc-video-item video,
-  .ugc-videos-{{ section.id }} .ugc-video-item .ugc-poster {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .ugc-{{ section.id }} .ugc-card video {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block;
   }
-
-  .ugc-videos-{{ section.id }} .ugc-poster {
-    cursor: pointer;
-    z-index: 1;
-    transition: opacity 0.3s ease;
+  .ugc-{{ section.id }} .ugc-card .ugc-poster {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+    z-index: 2; transition: opacity 0.4s ease; cursor: pointer;
   }
-
-  .ugc-videos-{{ section.id }} .ugc-poster.is-hidden {
-    opacity: 0;
-    pointer-events: none;
+  .ugc-{{ section.id }} .ugc-card .ugc-poster.is-hidden { opacity: 0; pointer-events: none; }
+  .ugc-{{ section.id }} .ugc-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 50px 14px 14px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+    z-index: 5; pointer-events: none; display: flex; flex-direction: column; gap: 4px;
   }
-
-  .ugc-videos-{{ section.id }} .ugc-play-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    width: 56px;
-    height: 56px;
-    border: none;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s ease, transform 0.2s ease;
-    padding: 0;
+  .ugc-{{ section.id }} .ugc-stars { display: flex; gap: 2px; }
+  .ugc-{{ section.id }} .ugc-stars svg { width: 16px; height: 16px; fill: #facc15; }
+  .ugc-{{ section.id }} .ugc-review-text {
+    color: #fff; font-size: 13px; line-height: 1.35; margin: 0;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   }
-
-  .ugc-videos-{{ section.id }} .ugc-play-btn:hover {
-    background: #fff;
-    transform: translate(-50%, -50%) scale(1.08);
+  .ugc-{{ section.id }} .ugc-product-row {
+    display: flex; align-items: center; gap: 8px; margin-top: 4px;
+    pointer-events: auto; text-decoration: none;
   }
-
-  .ugc-videos-{{ section.id }} .ugc-play-btn.is-hidden {
-    opacity: 0;
-    pointer-events: none;
+  .ugc-{{ section.id }} .ugc-product-img {
+    width: 28px; height: 28px; border-radius: 6px; object-fit: cover;
+    flex-shrink: 0; background: rgba(255,255,255,0.15);
   }
-
-  .ugc-videos-{{ section.id }} .ugc-play-btn svg {
-    width: 20px;
-    height: 20px;
-    margin-left: 3px;
-    fill: #000;
+  .ugc-{{ section.id }} .ugc-product-title {
+    color: rgba(255,255,255,0.85); font-size: 11px; line-height: 1.3;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-
-  .ugc-videos-{{ section.id }} .ugc-author {
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-    z-index: 3;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 600;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-    pointer-events: none;
+  .ugc-{{ section.id }} .ugc-sound-btn {
+    position: absolute; top: 12px; right: 12px; z-index: 6;
+    width: 32px; height: 32px; border-radius: 50%; border: none;
+    background: rgba(0,0,0,0.45); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; padding: 0; opacity: 0; transition: opacity 0.2s;
   }
-
-  .ugc-videos-{{ section.id }} .ugc-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #e8e8e8;
-    color: #999;
-    font-size: 14px;
+  .ugc-{{ section.id }} .ugc-card:hover .ugc-sound-btn,
+  .ugc-{{ section.id }} .ugc-card.is-playing .ugc-sound-btn { opacity: 1; }
+  .ugc-{{ section.id }} .ugc-sound-btn svg { width: 16px; height: 16px; fill: #fff; }
+  .ugc-{{ section.id }} .ugc-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+    width: 40px; height: 40px; border-radius: 50%; border: none;
+    background: rgba(255,255,255,0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    cursor: pointer; display: none; align-items: center; justify-content: center;
+    padding: 0; transition: background 0.2s, transform 0.2s;
+  }
+  .ugc-{{ section.id }} .ugc-nav:hover { background: #fff; transform: translateY(-50%) scale(1.06); }
+  .ugc-{{ section.id }} .ugc-nav svg {
+    width: 18px; height: 18px; stroke: #000; fill: none;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .ugc-{{ section.id }} .ugc-nav--prev { left: 14px; }
+  .ugc-{{ section.id }} .ugc-nav--next { right: 14px; }
+  @media screen and (min-width: 750px) {
+    .ugc-{{ section.id }} .ugc-nav { display: flex; }
+    .ugc-{{ section.id }} .ugc-nav--prev { left: 16px; }
+    .ugc-{{ section.id }} .ugc-nav--next { right: 16px; }
+  }
+  .ugc-{{ section.id }} .ugc-placeholder {
+    position: absolute; inset: 0; display: flex; align-items: center;
+    justify-content: center; background: #e8e8e8; color: #999; font-size: 14px;
   }
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width section-{{ section.id }}-padding ugc-videos-{{ section.id }}">
+  <div class="section-{{ section.id }}-padding ugc-{{ section.id }}">
     {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
-      <div class="ugc-title-wrapper">
+      <div class="ugc-title-wrapper page-width">
         {%- if section.settings.heading != blank -%}
-          <h2 class="ugc-heading inline-richtext {{ section.settings.heading_size }}">
-            {{ section.settings.heading }}
-          </h2>
+          <h2 class="ugc-heading inline-richtext {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
         {%- endif -%}
         {%- if section.settings.subheading != blank -%}
           <p class="ugc-subheading">{{ section.settings.subheading | escape }}</p>
@@ -160,139 +128,119 @@
       </div>
     {%- endif -%}
 
-    <ul class="ugc-grid">
-      {%- for block in section.blocks -%}
-        <li class="ugc-video-item" {{ block.shopify_attributes }}>
-          {%- if block.settings.video != blank -%}
-            <video
-              src="{{ block.settings.video.sources[1].url | default: block.settings.video.sources[0].url }}"
-              playsinline
-              {% if section.settings.loop %}loop{% endif %}
-              {% if section.settings.muted %}muted{% endif %}
-              preload="metadata"
-              data-ugc-video
-            ></video>
-
-            {%- if block.settings.video.preview_image or block.settings.cover_image != blank -%}
-              {%- assign poster_image = block.settings.cover_image | default: block.settings.video.preview_image -%}
-              <img
-                class="ugc-poster"
-                src="{{ poster_image | image_url: width: 600 }}"
-                alt="{{ block.settings.author | escape | default: 'UGC video' }}"
-                loading="lazy"
-                width="600"
-                height="{{ 600 | divided_by: poster_image.aspect_ratio | ceil }}"
-                data-ugc-poster
-              >
-            {%- endif -%}
-
-            <button class="ugc-play-btn" aria-label="{{ 'sections.video.load_video' | t }}" data-ugc-play>
-              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 4l12 6-12 6V4z"/>
-              </svg>
-            </button>
-          {%- elsif block.settings.video_url != blank -%}
-            {%- assign cover = block.settings.cover_image -%}
-            {%- if cover != blank -%}
-              <img
-                class="ugc-poster"
-                src="{{ cover | image_url: width: 600 }}"
-                alt="{{ block.settings.author | escape | default: 'UGC video' }}"
-                loading="lazy"
-                width="600"
-                height="{{ 600 | divided_by: cover.aspect_ratio | ceil }}"
-                data-ugc-poster
-              >
-            {%- else -%}
-              <div class="ugc-placeholder" data-ugc-poster>Video</div>
-            {%- endif -%}
-            <button
-              class="ugc-play-btn"
-              aria-label="{{ 'sections.video.load_video' | t }}"
-              data-ugc-play
-              data-ugc-external-url="{{ block.settings.video_url }}"
-              {%- if block.settings.video_url.type == 'youtube' -%}
-                data-ugc-youtube="{{ block.settings.video_url.id }}"
-              {%- elsif block.settings.video_url.type == 'vimeo' -%}
-                data-ugc-vimeo="{{ block.settings.video_url.id }}"
+    <div class="ugc-slider-wrapper">
+      <div class="ugc-track" data-ugc-track="{{ section.id }}">
+        {%- for block in section.blocks -%}
+          <div class="ugc-card" {{ block.shopify_attributes }} data-ugc-card>
+            {%- if block.settings.video != blank -%}
+              <video
+                src="{{ block.settings.video.sources[1].url | default: block.settings.video.sources[0].url }}"
+                playsinline muted
+                {% if section.settings.loop %}loop{% endif %}
+                preload="metadata"
+                data-ugc-video
+              ></video>
+              {%- assign poster_img = block.settings.cover_image | default: block.settings.video.preview_image -%}
+              {%- if poster_img -%}
+                <img class="ugc-poster" src="{{ poster_img | image_url: width: 600 }}" alt="{{ block.settings.author | escape | default: 'UGC video' }}" loading="lazy" data-ugc-poster>
               {%- endif -%}
-            >
-              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 4l12 6-12 6V4z"/>
-              </svg>
-            </button>
-          {%- else -%}
-            <div class="ugc-placeholder">{{ 'sections.video.load_video' | t | default: 'Upload a video' }}</div>
-          {%- endif -%}
+              <button class="ugc-sound-btn" aria-label="Geluid aan/uit" data-ugc-sound>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-ugc-icon-muted><path d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none" data-ugc-icon-unmuted><path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+              </button>
+            {%- elsif block.settings.video_url != blank -%}
+              {%- assign cover = block.settings.cover_image -%}
+              {%- if cover != blank -%}
+                <img class="ugc-poster" src="{{ cover | image_url: width: 600 }}" alt="{{ block.settings.author | escape | default: 'UGC video' }}" loading="lazy">
+              {%- else -%}
+                <div class="ugc-placeholder">Video</div>
+              {%- endif -%}
+            {%- else -%}
+              <div class="ugc-placeholder">Upload een video</div>
+            {%- endif -%}
 
-          {%- if block.settings.author != blank -%}
-            <span class="ugc-author">@{{ block.settings.author | escape }}</span>
-          {%- endif -%}
-        </li>
-      {%- endfor -%}
-    </ul>
+            {%- if block.settings.review_text != blank or block.settings.show_stars or block.settings.product != blank or block.settings.author != blank -%}
+              <div class="ugc-overlay">
+                {%- if block.settings.show_stars -%}
+                  <div class="ugc-stars">
+                    {%- for i in (1..5) -%}
+                      {%- if i <= block.settings.star_count -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                      {%- else -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="opacity:0.3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.review_text != blank -%}
+                  <p class="ugc-review-text">{{ block.settings.review_text | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.product != blank -%}
+                  <a href="{{ block.settings.product.url }}" class="ugc-product-row">
+                    {%- if block.settings.product.featured_image -%}
+                      <img class="ugc-product-img" src="{{ block.settings.product.featured_image | image_url: width: 80 }}" alt="{{ block.settings.product.title | escape }}" loading="lazy" width="28" height="28">
+                    {%- endif -%}
+                    <span class="ugc-product-title">{{ block.settings.product.title | escape }}</span>
+                  </a>
+                {%- elsif block.settings.author != blank -%}
+                  <span class="ugc-product-title" style="color:rgba(255,255,255,0.7)">@{{ block.settings.author | escape }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      <button class="ugc-nav ugc-nav--prev" aria-label="Vorige" data-ugc-prev="{{ section.id }}"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="ugc-nav ugc-nav--next" aria-label="Volgende" data-ugc-next="{{ section.id }}"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+    </div>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.ugc-videos-{{ section.id }} [data-ugc-play]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var item = btn.closest('.ugc-video-item');
-        var video = item.querySelector('[data-ugc-video]');
-        var poster = item.querySelector('[data-ugc-poster]');
-
-        if (btn.dataset.ugcYoutube) {
-          var iframe = document.createElement('iframe');
-          iframe.src = 'https://www.youtube.com/embed/' + btn.dataset.ugcYoutube + '?autoplay=1';
-          iframe.allow = 'autoplay; encrypted-media';
-          iframe.allowFullscreen = true;
-          iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:0;';
-          item.appendChild(iframe);
-          btn.classList.add('is-hidden');
-          if (poster) poster.classList.add('is-hidden');
-          return;
-        }
-
-        if (btn.dataset.ugcVimeo) {
-          var iframe = document.createElement('iframe');
-          iframe.src = 'https://player.vimeo.com/video/' + btn.dataset.ugcVimeo + '?autoplay=1';
-          iframe.allow = 'autoplay; encrypted-media';
-          iframe.allowFullscreen = true;
-          iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:0;';
-          item.appendChild(iframe);
-          btn.classList.add('is-hidden');
-          if (poster) poster.classList.add('is-hidden');
-          return;
-        }
-
-        if (video) {
-          if (video.paused) {
-            video.play();
-            btn.classList.add('is-hidden');
+  (function() {
+    var sectionId = '{{ section.id }}';
+    var track = document.querySelector('[data-ugc-track="' + sectionId + '"]');
+    if (!track) return;
+    var cards = track.querySelectorAll('[data-ugc-card]');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        var video = entry.target.querySelector('[data-ugc-video]');
+        if (!video) return;
+        var poster = entry.target.querySelector('[data-ugc-poster]');
+        if (entry.isIntersecting) {
+          video.play().then(function() {
+            entry.target.classList.add('is-playing');
             if (poster) poster.classList.add('is-hidden');
-          } else {
-            video.pause();
-            btn.classList.remove('is-hidden');
-          }
+          }).catch(function() {});
+        } else {
+          video.pause();
+          entry.target.classList.remove('is-playing');
         }
+      });
+    }, { root: null, threshold: 0.5 });
+    cards.forEach(function(card) { observer.observe(card); });
+
+    track.querySelectorAll('[data-ugc-sound]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var card = btn.closest('[data-ugc-card]');
+        var video = card.querySelector('[data-ugc-video]');
+        if (!video) return;
+        video.muted = !video.muted;
+        btn.querySelector('[data-ugc-icon-muted]').style.display = video.muted ? 'block' : 'none';
+        btn.querySelector('[data-ugc-icon-unmuted]').style.display = video.muted ? 'none' : 'block';
       });
     });
 
-    document.querySelectorAll('.ugc-videos-{{ section.id }} [data-ugc-video]').forEach(function (video) {
-      video.addEventListener('click', function () {
-        var item = video.closest('.ugc-video-item');
-        var btn = item.querySelector('[data-ugc-play]');
-        if (!video.paused) {
-          video.pause();
-          if (btn) btn.classList.remove('is-hidden');
-        } else {
-          video.play();
-          if (btn) btn.classList.add('is-hidden');
-        }
-      });
-    });
-  });
+    var prevBtn = document.querySelector('[data-ugc-prev="' + sectionId + '"]');
+    var nextBtn = document.querySelector('[data-ugc-next="' + sectionId + '"]');
+    var scrollAmt = function() {
+      var c = track.querySelector('.ugc-card');
+      return c ? c.offsetWidth + parseInt(getComputedStyle(track).gap || 16) : 300;
+    };
+    if (prevBtn) prevBtn.addEventListener('click', function() { track.scrollBy({ left: -scrollAmt(), behavior: 'smooth' }); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { track.scrollBy({ left: scrollAmt(), behavior: 'smooth' }); });
+  })();
 </script>
 
 {% schema %}
@@ -300,196 +248,46 @@
   "name": "UGC Videos",
   "tag": "section",
   "class": "section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
+  "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
-    {
-      "type": "inline_richtext",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Onze community"
-    },
-    {
-      "type": "select",
-      "id": "heading_size",
-      "options": [
-        { "value": "h2", "label": "Small" },
-        { "value": "h1", "label": "Medium" },
-        { "value": "h0", "label": "Large" }
-      ],
-      "default": "h1",
-      "label": "Heading size"
-    },
-    {
-      "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Bekijk hoe onze klanten onze producten gebruiken"
-    },
-    {
-      "type": "select",
-      "id": "heading_alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "center",
-      "label": "Heading alignment"
-    },
-    {
-      "type": "header",
-      "content": "Layout"
-    },
-    {
-      "type": "range",
-      "id": "columns_desktop",
-      "min": 2,
-      "max": 6,
-      "step": 1,
-      "default": 4,
-      "label": "Columns desktop"
-    },
-    {
-      "type": "select",
-      "id": "columns_mobile",
-      "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" }
-      ],
-      "default": "2",
-      "label": "Columns mobile"
-    },
-    {
-      "type": "range",
-      "id": "gap",
-      "min": 0,
-      "max": 32,
-      "step": 4,
-      "unit": "px",
-      "default": 16,
-      "label": "Gap"
-    },
-    {
-      "type": "range",
-      "id": "gap_mobile",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "default": 8,
-      "label": "Gap mobile"
-    },
-    {
-      "type": "range",
-      "id": "aspect_ratio",
-      "min": 100,
-      "max": 200,
-      "step": 5,
-      "unit": "%",
-      "default": 165,
-      "label": "Aspect ratio (height %)",
-      "info": "165% = 9:16 portrait, 100% = square"
-    },
-    {
-      "type": "range",
-      "id": "border_radius",
-      "min": 0,
-      "max": 24,
-      "step": 2,
-      "unit": "px",
-      "default": 12,
-      "label": "Border radius"
-    },
-    {
-      "type": "header",
-      "content": "Video settings"
-    },
-    {
-      "type": "checkbox",
-      "id": "muted",
-      "default": true,
-      "label": "Start muted"
-    },
-    {
-      "type": "checkbox",
-      "id": "loop",
-      "default": true,
-      "label": "Loop videos"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "Section padding"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "default": 36,
-      "label": "Padding top"
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "default": 36,
-      "label": "Padding bottom"
-    }
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Onze community" },
+    { "type": "select", "id": "heading_size", "options": [{ "value": "h2", "label": "Small" }, { "value": "h1", "label": "Medium" }, { "value": "h0", "label": "Large" }], "default": "h1", "label": "Heading size" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Bekijk hoe onze klanten onze producten gebruiken" },
+    { "type": "select", "id": "heading_alignment", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }], "default": "center", "label": "Heading alignment" },
+    { "type": "header", "content": "Card sizing" },
+    { "type": "range", "id": "card_width_desktop", "min": 12, "max": 30, "step": 1, "unit": "vw", "default": 20, "label": "Card width desktop" },
+    { "type": "range", "id": "card_width_mobile", "min": 35, "max": 80, "step": 5, "unit": "vw", "default": 55, "label": "Card width mobile" },
+    { "type": "range", "id": "gap", "min": 0, "max": 32, "step": 4, "unit": "px", "default": 16, "label": "Gap" },
+    { "type": "range", "id": "gap_mobile", "min": 0, "max": 20, "step": 2, "unit": "px", "default": 10, "label": "Gap mobile" },
+    { "type": "range", "id": "border_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 14, "label": "Border radius" },
+    { "type": "header", "content": "Video settings" },
+    { "type": "checkbox", "id": "loop", "default": true, "label": "Loop videos" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "header", "content": "Section padding" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 36, "label": "Padding top" },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 36, "label": "Padding bottom" }
   ],
   "blocks": [
     {
       "type": "video",
       "name": "UGC Video",
       "settings": [
-        {
-          "type": "video",
-          "id": "video",
-          "label": "Shopify hosted video"
-        },
-        {
-          "type": "video_url",
-          "id": "video_url",
-          "accept": ["youtube", "vimeo"],
-          "label": "Or YouTube/Vimeo URL",
-          "info": "Used if no Shopify video is uploaded"
-        },
-        {
-          "type": "image_picker",
-          "id": "cover_image",
-          "label": "Cover image (optional)",
-          "info": "Overrides the auto-generated preview"
-        },
-        {
-          "type": "text",
-          "id": "author",
-          "label": "Author / username",
-          "info": "Shown in bottom left corner"
-        }
+        { "type": "video", "id": "video", "label": "Shopify hosted video" },
+        { "type": "video_url", "id": "video_url", "accept": ["youtube", "vimeo"], "label": "Or YouTube/Vimeo URL", "info": "Fallback als er geen Shopify video is" },
+        { "type": "image_picker", "id": "cover_image", "label": "Cover image (optioneel)" },
+        { "type": "header", "content": "Review overlay" },
+        { "type": "checkbox", "id": "show_stars", "label": "Toon sterren", "default": true },
+        { "type": "range", "id": "star_count", "min": 1, "max": 5, "step": 1, "default": 5, "label": "Aantal sterren" },
+        { "type": "text", "id": "review_text", "label": "Review tekst", "info": "Kort citaat van de klant" },
+        { "type": "product", "id": "product", "label": "Gekoppeld product", "info": "Toont productafbeelding en naam onderaan" },
+        { "type": "text", "id": "author", "label": "Auteur / username", "info": "Wordt getoond als er geen product is gekoppeld" }
       ]
     }
   ],
   "presets": [
     {
       "name": "UGC Videos",
-      "blocks": [
-        { "type": "video" },
-        { "type": "video" },
-        { "type": "video" },
-        { "type": "video" }
-      ]
+      "blocks": [{ "type": "video" }, { "type": "video" }, { "type": "video" }, { "type": "video" }, { "type": "video" }]
     }
   ]
 }
