@@ -1,0 +1,148 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .tb-{{ section.id }} .tb-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+  @media screen and (min-width: 750px) {
+    .tb-{{ section.id }} .tb-grid {
+      grid-template-columns: repeat({{ section.blocks.size }}, 1fr);
+      gap: 32px;
+    }
+  }
+
+  .tb-{{ section.id }} .tb-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 24px 16px;
+    border-radius: {{ section.settings.card_radius }}px;
+    background: {{ section.settings.card_bg }};
+  }
+
+  .tb-{{ section.id }} .tb-icon {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tb-{{ section.id }} .tb-icon img,
+  .tb-{{ section.id }} .tb-icon svg {
+    width: 100%; height: 100%; object-fit: contain;
+  }
+
+  .tb-{{ section.id }} .tb-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .tb-{{ section.id }} .tb-desc {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.7;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding tb-{{ section.id }}">
+    <div class="tb-grid">
+      {%- for block in section.blocks -%}
+        <div class="tb-item" {{ block.shopify_attributes }}>
+          <div class="tb-icon">
+            {%- if block.settings.icon_image != blank -%}
+              <img src="{{ block.settings.icon_image | image_url: width: 120 }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+            {%- else -%}
+              {%- case block.settings.icon -%}
+                {%- when 'shield' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                {%- when 'truck' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                {%- when 'return' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                {%- when 'moon' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                {%- when 'star' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                {%- when 'heart' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                {%- else -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              {%- endcase -%}
+            {%- endif -%}
+          </div>
+          {%- if block.settings.title != blank -%}
+            <h3 class="tb-title">{{ block.settings.title | escape }}</h3>
+          {%- endif -%}
+          {%- if block.settings.description != blank -%}
+            <p class="tb-desc">{{ block.settings.description | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "CP - Vertrouwensbanner",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "range", "id": "icon_size", "min": 24, "max": 80, "step": 4, "unit": "px", "default": 40, "label": "Icoon grootte" },
+    { "type": "range", "id": "card_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 12, "label": "Kaart border radius" },
+    { "type": "color", "id": "card_bg", "label": "Kaart achtergrond", "default": "#f7f7f7" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Kleurenschema", "default": "scheme-1" },
+    { "type": "header", "content": "Sectie padding" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 24, "label": "Padding boven" },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 24, "label": "Padding onder" }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Vertrouwensitem",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icoon", "options": [
+          { "value": "shield", "label": "Schild (garantie)" },
+          { "value": "truck", "label": "Vrachtwagen (verzending)" },
+          { "value": "return", "label": "Retour" },
+          { "value": "moon", "label": "Maan (proefslapen)" },
+          { "value": "star", "label": "Ster" },
+          { "value": "heart", "label": "Hart" },
+          { "value": "check", "label": "Vinkje" }
+        ], "default": "shield" },
+        { "type": "image_picker", "id": "icon_image", "label": "Eigen icoon (optioneel)", "info": "Overschrijft het standaard icoon" },
+        { "type": "text", "id": "title", "label": "Titel", "default": "100 nachten proefslapen" },
+        { "type": "text", "id": "description", "label": "Beschrijving", "default": "Niet tevreden? Gratis retour." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CP - Vertrouwensbanner",
+      "blocks": [
+        { "type": "trust_item", "settings": { "icon": "moon", "title": "100 nachten proefslapen", "description": "Niet tevreden? Gratis retour." } },
+        { "type": "trust_item", "settings": { "icon": "truck", "title": "Gratis verzending", "description": "Bij bestellingen boven €50" } },
+        { "type": "trust_item", "settings": { "icon": "return", "title": "Gratis retourneren", "description": "Eenvoudig en kosteloos" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
