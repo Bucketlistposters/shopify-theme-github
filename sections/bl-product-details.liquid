@@ -1,0 +1,201 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .pd-{{ section.id }} .pd-heading {
+    margin: 0 0 32px;
+    text-align: {{ section.settings.heading_alignment }};
+  }
+
+  .pd-{{ section.id }} .pd-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  @media screen and (min-width: 750px) {
+    .pd-{{ section.id }} .pd-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .pd-{{ section.id }} .pd-group {
+    border-top: 1px solid rgba(18,18,18,0.08);
+    padding: 20px 0;
+  }
+  @media screen and (min-width: 750px) {
+    .pd-{{ section.id }} .pd-group { padding: 24px 20px; }
+    .pd-{{ section.id }} .pd-group:nth-child(odd) { padding-left: 0; }
+    .pd-{{ section.id }} .pd-group:nth-child(even) { border-left: 1px solid rgba(18,18,18,0.08); }
+  }
+
+  .pd-{{ section.id }} .pd-group-title {
+    margin: 0 0 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.4;
+    font-weight: 700;
+  }
+
+  .pd-{{ section.id }} .pd-specs-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+
+  .pd-{{ section.id }} .pd-spec {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .pd-{{ section.id }} .pd-spec-label { opacity: 0.6; }
+  .pd-{{ section.id }} .pd-spec-value { font-weight: 600; text-align: right; }
+
+  .pd-{{ section.id }} .pd-dimensions {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 4px;
+  }
+
+  .pd-{{ section.id }} .pd-dim {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 14px 18px; border-radius: 8px;
+    background: {{ section.settings.dim_bg }}; min-width: 70px;
+    border: 1px solid rgba(18,18,18,0.06);
+  }
+  .pd-{{ section.id }} .pd-dim-value { font-size: 17px; font-weight: 700; line-height: 1; }
+  .pd-{{ section.id }} .pd-dim-label { font-size: 10px; opacity: 0.45; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .pd-{{ section.id }} .pd-richtext { font-size: 14px; line-height: 1.6; opacity: 0.75; }
+  .pd-{{ section.id }} .pd-richtext p { margin: 0 0 6px; }
+  .pd-{{ section.id }} .pd-richtext ul { padding-left: 18px; margin: 0; }
+  .pd-{{ section.id }} .pd-richtext li { margin-bottom: 4px; }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding pd-{{ section.id }}">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pd-heading {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.show_dimensions -%}
+      <div style="margin-bottom: 24px;">
+        <p class="pd-group-title">Formaat en gewicht</p>
+        <div class="pd-dimensions">
+          {%- if section.settings.dim_1_value != blank -%}
+            <div class="pd-dim"><span class="pd-dim-value">{{ section.settings.dim_1_value }}</span><span class="pd-dim-label">{{ section.settings.dim_1_label | default: 'Lengte' }}</span></div>
+          {%- endif -%}
+          {%- if section.settings.dim_2_value != blank -%}
+            <div class="pd-dim"><span class="pd-dim-value">{{ section.settings.dim_2_value }}</span><span class="pd-dim-label">{{ section.settings.dim_2_label | default: 'Breedte' }}</span></div>
+          {%- endif -%}
+          {%- if section.settings.dim_3_value != blank -%}
+            <div class="pd-dim"><span class="pd-dim-value">{{ section.settings.dim_3_value }}</span><span class="pd-dim-label">{{ section.settings.dim_3_label | default: 'Hoogte' }}</span></div>
+          {%- endif -%}
+          {%- if section.settings.dim_4_value != blank -%}
+            <div class="pd-dim"><span class="pd-dim-value">{{ section.settings.dim_4_value }}</span><span class="pd-dim-label">{{ section.settings.dim_4_label | default: 'Gewicht' }}</span></div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="pd-grid">
+      {%- for block in section.blocks -%}
+        <div class="pd-group" {{ block.shopify_attributes }}>
+          {%- if block.settings.group_title != blank -%}
+            <p class="pd-group-title">{{ block.settings.group_title | escape }}</p>
+          {%- endif -%}
+          {%- if block.type == 'spec_list' -%}
+            <ul class="pd-specs-list">
+              {%- if block.settings.spec_1_label != blank -%}<li class="pd-spec"><span class="pd-spec-label">{{ block.settings.spec_1_label }}</span><span class="pd-spec-value">{{ block.settings.spec_1_value }}</span></li>{%- endif -%}
+              {%- if block.settings.spec_2_label != blank -%}<li class="pd-spec"><span class="pd-spec-label">{{ block.settings.spec_2_label }}</span><span class="pd-spec-value">{{ block.settings.spec_2_value }}</span></li>{%- endif -%}
+              {%- if block.settings.spec_3_label != blank -%}<li class="pd-spec"><span class="pd-spec-label">{{ block.settings.spec_3_label }}</span><span class="pd-spec-value">{{ block.settings.spec_3_value }}</span></li>{%- endif -%}
+              {%- if block.settings.spec_4_label != blank -%}<li class="pd-spec"><span class="pd-spec-label">{{ block.settings.spec_4_label }}</span><span class="pd-spec-value">{{ block.settings.spec_4_value }}</span></li>{%- endif -%}
+              {%- if block.settings.spec_5_label != blank -%}<li class="pd-spec"><span class="pd-spec-label">{{ block.settings.spec_5_label }}</span><span class="pd-spec-value">{{ block.settings.spec_5_value }}</span></li>{%- endif -%}
+              {%- if block.settings.spec_6_label != blank -%}<li class="pd-spec"><span class="pd-spec-label">{{ block.settings.spec_6_label }}</span><span class="pd-spec-value">{{ block.settings.spec_6_value }}</span></li>{%- endif -%}
+            </ul>
+          {%- elsif block.type == 'richtext' -%}
+            <div class="pd-richtext rte">{{ block.settings.content }}</div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BL - Product Details",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Productdetails" },
+    { "type": "select", "id": "heading_size", "options": [
+      { "value": "h2", "label": "Small" },{ "value": "h1", "label": "Medium" },{ "value": "h0", "label": "Large" }
+    ], "default": "h1", "label": "Heading grootte" },
+    { "type": "select", "id": "heading_alignment", "options": [
+      { "value": "left", "label": "Links" },{ "value": "center", "label": "Midden" }
+    ], "default": "left", "label": "Heading uitlijning" },
+    { "type": "header", "content": "Afmetingen" },
+    { "type": "checkbox", "id": "show_dimensions", "label": "Toon afmetingen", "default": true },
+    { "type": "text", "id": "dim_1_label", "label": "Label 1", "default": "Lengte" },
+    { "type": "text", "id": "dim_1_value", "label": "Waarde 1", "default": "42 cm" },
+    { "type": "text", "id": "dim_2_label", "label": "Label 2", "default": "Breedte" },
+    { "type": "text", "id": "dim_2_value", "label": "Waarde 2", "default": "30 cm" },
+    { "type": "text", "id": "dim_3_label", "label": "Label 3", "default": "Hoogte" },
+    { "type": "text", "id": "dim_3_value", "label": "Waarde 3" },
+    { "type": "text", "id": "dim_4_label", "label": "Label 4", "default": "Gewicht" },
+    { "type": "text", "id": "dim_4_value", "label": "Waarde 4", "default": "200 g" },
+    { "type": "color", "id": "dim_bg", "label": "Afmeting kaart achtergrond", "default": "#f3f3f3" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Kleurenschema", "default": "scheme-1" },
+    { "type": "header", "content": "Sectie padding" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 36, "label": "Padding boven" },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 36, "label": "Padding onder" }
+  ],
+  "blocks": [
+    {
+      "type": "spec_list",
+      "name": "Specificatie lijst",
+      "settings": [
+        { "type": "text", "id": "group_title", "label": "Groepstitel", "default": "Specificaties" },
+        { "type": "text", "id": "spec_1_label", "label": "Spec 1 label", "default": "Materiaal" },
+        { "type": "text", "id": "spec_1_value", "label": "Spec 1 waarde", "default": "Premium papier" },
+        { "type": "text", "id": "spec_2_label", "label": "Spec 2 label" },
+        { "type": "text", "id": "spec_2_value", "label": "Spec 2 waarde" },
+        { "type": "text", "id": "spec_3_label", "label": "Spec 3 label" },
+        { "type": "text", "id": "spec_3_value", "label": "Spec 3 waarde" },
+        { "type": "text", "id": "spec_4_label", "label": "Spec 4 label" },
+        { "type": "text", "id": "spec_4_value", "label": "Spec 4 waarde" },
+        { "type": "text", "id": "spec_5_label", "label": "Spec 5 label" },
+        { "type": "text", "id": "spec_5_value", "label": "Spec 5 waarde" },
+        { "type": "text", "id": "spec_6_label", "label": "Spec 6 label" },
+        { "type": "text", "id": "spec_6_value", "label": "Spec 6 waarde" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "name": "Vrije tekst",
+      "settings": [
+        { "type": "text", "id": "group_title", "label": "Groepstitel", "default": "Extra info" },
+        { "type": "richtext", "id": "content", "label": "Inhoud", "default": "<p>Voeg hier aanvullende informatie toe.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BL - Product Details",
+      "blocks": [
+        { "type": "spec_list", "settings": { "group_title": "Specificaties", "spec_1_label": "Materiaal", "spec_1_value": "250 grams papier", "spec_2_label": "Kraslaag", "spec_2_value": "Zilver metallic" } },
+        { "type": "richtext", "settings": { "group_title": "In de doos", "content": "<p>Je ontvangt de poster in een stevig verzendkoker zodat alles in perfecte staat aankomt.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

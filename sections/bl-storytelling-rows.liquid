@@ -10,42 +10,42 @@
     }
   }
 
-  .vtr-{{ section.id }} .vtr-block {
+  .str-{{ section.id }} .str-block {
     display: flex;
     flex-direction: column;
     gap: 24px;
     align-items: center;
     padding: 0 0 48px;
   }
-  .vtr-{{ section.id }} .vtr-block:last-child { padding-bottom: 0; }
+  .str-{{ section.id }} .str-block:last-child { padding-bottom: 0; }
 
   @media screen and (min-width: 750px) {
-    .vtr-{{ section.id }} .vtr-block {
+    .str-{{ section.id }} .str-block {
       flex-direction: row;
       gap: 48px;
       padding: 0 0 64px;
     }
-    .vtr-{{ section.id }} .vtr-block--reversed { flex-direction: row-reverse; }
+    .str-{{ section.id }} .str-block--reversed { flex-direction: row-reverse; }
   }
 
-  .vtr-{{ section.id }} .vtr-media {
+  .str-{{ section.id }} .str-media {
     flex: 0 0 100%;
     width: 100%;
     position: relative;
     border-radius: {{ section.settings.media_radius }}px;
     overflow: hidden;
     aspect-ratio: {{ section.settings.media_aspect_ratio }};
-    background: #000;
+    background: #f3f3f3;
   }
   @media screen and (min-width: 750px) {
-    .vtr-{{ section.id }} .vtr-media {
+    .str-{{ section.id }} .str-media {
       flex: 0 0 calc(50% - 24px);
       width: calc(50% - 24px);
     }
   }
 
-  .vtr-{{ section.id }} .vtr-media video,
-  .vtr-{{ section.id }} .vtr-media img {
+  .str-{{ section.id }} .str-media video,
+  .str-{{ section.id }} .str-media img {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -53,25 +53,25 @@
     display: block;
   }
 
-  .vtr-{{ section.id }} .vtr-media .vtr-poster {
+  .str-{{ section.id }} .str-media .str-poster {
     z-index: 2;
     transition: opacity 0.4s ease;
     cursor: pointer;
   }
-  .vtr-{{ section.id }} .vtr-media .vtr-poster.is-hidden {
+  .str-{{ section.id }} .str-media .str-poster.is-hidden {
     opacity: 0;
     pointer-events: none;
   }
 
-  .vtr-{{ section.id }} .vtr-play {
+  .str-{{ section.id }} .str-play {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
-    width: 56px; height: 56px;
+    width: 52px; height: 52px;
     border-radius: 50%;
     border: none;
-    background: rgba(255,255,255,0.9);
+    background: rgba(18,18,18,0.75);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -79,50 +79,45 @@
     transition: transform 0.2s, opacity 0.3s;
     padding: 0;
   }
-  .vtr-{{ section.id }} .vtr-play svg { width: 20px; height: 20px; fill: #000; margin-left: 3px; }
-  .vtr-{{ section.id }} .vtr-play:hover { transform: translate(-50%, -50%) scale(1.08); }
-  .vtr-{{ section.id }} .vtr-play.is-hidden { opacity: 0; pointer-events: none; }
+  .str-{{ section.id }} .str-play svg { width: 18px; height: 18px; fill: #fff; margin-left: 2px; }
+  .str-{{ section.id }} .str-play:hover { transform: translate(-50%, -50%) scale(1.08); }
+  .str-{{ section.id }} .str-play.is-hidden { opacity: 0; pointer-events: none; }
 
-  .vtr-{{ section.id }} .vtr-content {
+  .str-{{ section.id }} .str-content {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
-  .vtr-{{ section.id }} .vtr-label {
-    font-size: 12px;
-    letter-spacing: 0.1em;
+  .str-{{ section.id }} .str-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    opacity: 0.5;
-    margin: 0 0 8px;
+    opacity: 0.45;
+    margin: 0 0 10px;
+    font-weight: 600;
   }
 
-  .vtr-{{ section.id }} .vtr-heading {
+  .str-{{ section.id }} .str-heading {
     margin: 0 0 16px;
     line-height: 1.2;
   }
-  .vtr-{{ section.id }} .vtr-heading em,
-  .vtr-{{ section.id }} .vtr-heading i {
-    font-style: italic;
-    opacity: 0.7;
-  }
 
-  .vtr-{{ section.id }} .vtr-text {
+  .str-{{ section.id }} .str-text {
     margin: 0;
-    line-height: 1.65;
-    opacity: 0.8;
+    line-height: 1.7;
+    opacity: 0.75;
     font-size: 15px;
   }
 
-  .vtr-{{ section.id }} .vtr-btn {
-    margin-top: 20px;
+  .str-{{ section.id }} .str-btn {
+    margin-top: 24px;
     display: inline-flex;
     align-self: flex-start;
   }
 
-  /* Image-only fallback */
-  .vtr-{{ section.id }} .vtr-media--image-only img {
+  .str-{{ section.id }} .str-media--image-only img {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -131,42 +126,42 @@
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width section-{{ section.id }}-padding vtr-{{ section.id }}">
+  <div class="page-width section-{{ section.id }}-padding str-{{ section.id }}">
     {%- for block in section.blocks -%}
-      <div class="vtr-block{% if section.settings.alternate_layout %}{% cycle '', ' vtr-block--reversed' %}{% elsif block.settings.reversed %} vtr-block--reversed{% endif %}" {{ block.shopify_attributes }}>
-        <div class="vtr-media{% unless block.settings.video != blank %} vtr-media--image-only{% endunless %}">
+      <div class="str-block{% if section.settings.alternate_layout %}{% cycle '', ' str-block--reversed' %}{% elsif block.settings.reversed %} str-block--reversed{% endif %}" {{ block.shopify_attributes }}>
+        <div class="str-media{% unless block.settings.video != blank %} str-media--image-only{% endunless %}">
           {%- if block.settings.video != blank -%}
             <video
               src="{{ block.settings.video.sources[1].url | default: block.settings.video.sources[0].url }}"
               playsinline muted loop
               preload="metadata"
-              data-vtr-video
+              data-str-video
             ></video>
             {%- assign poster_img = block.settings.image | default: block.settings.video.preview_image -%}
             {%- if poster_img -%}
-              <img class="vtr-poster" src="{{ poster_img | image_url: width: 900 }}" alt="{{ block.settings.heading | strip_html | escape }}" loading="lazy" data-vtr-poster>
+              <img class="str-poster" src="{{ poster_img | image_url: width: 900 }}" alt="{{ block.settings.heading | strip_html | escape }}" loading="lazy" data-str-poster>
             {%- endif -%}
-            <button class="vtr-play" aria-label="Video afspelen" data-vtr-play>
+            <button class="str-play" aria-label="Video afspelen" data-str-play>
               <svg viewBox="0 0 20 20"><path d="M6 4l12 6-12 6V4z"/></svg>
             </button>
           {%- elsif block.settings.image != blank -%}
             <img src="{{ block.settings.image | image_url: width: 900 }}" alt="{{ block.settings.heading | strip_html | escape }}" loading="lazy">
           {%- else -%}
-            <div style="position:absolute;inset:0;background:#e8e8e8;display:flex;align-items:center;justify-content:center;color:#999;">Afbeelding of video</div>
+            <div style="position:absolute;inset:0;background:#f3f3f3;display:flex;align-items:center;justify-content:center;color:#999;">Afbeelding of video</div>
           {%- endif -%}
         </div>
-        <div class="vtr-content">
+        <div class="str-content">
           {%- if block.settings.label != blank -%}
-            <p class="vtr-label">{{ block.settings.label | escape }}</p>
+            <p class="str-label">{{ block.settings.label | escape }}</p>
           {%- endif -%}
           {%- if block.settings.heading != blank -%}
-            <h2 class="vtr-heading {{ section.settings.heading_size }}">{{ block.settings.heading }}</h2>
+            <h2 class="str-heading {{ section.settings.heading_size }}">{{ block.settings.heading }}</h2>
           {%- endif -%}
           {%- if block.settings.text != blank -%}
-            <div class="vtr-text rte">{{ block.settings.text }}</div>
+            <div class="str-text rte">{{ block.settings.text }}</div>
           {%- endif -%}
           {%- if block.settings.button_label != blank -%}
-            <a href="{{ block.settings.button_link | default: '#' }}" class="button button--primary vtr-btn">{{ block.settings.button_label | escape }}</a>
+            <a href="{{ block.settings.button_link | default: '#' }}" class="button button--primary str-btn">{{ block.settings.button_label | escape }}</a>
           {%- endif -%}
         </div>
       </div>
@@ -176,38 +171,28 @@
 
 <script>
   (function() {
-    var section = document.querySelector('.vtr-{{ section.id }}');
+    var section = document.querySelector('.str-{{ section.id }}');
     if (!section) return;
-
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
-        var video = entry.target.querySelector('[data-vtr-video]');
+        var video = entry.target.querySelector('[data-str-video]');
         if (!video) return;
-        var poster = entry.target.querySelector('[data-vtr-poster]');
-        var playBtn = entry.target.querySelector('[data-vtr-play]');
+        var poster = entry.target.querySelector('[data-str-poster]');
+        var playBtn = entry.target.querySelector('[data-str-play]');
         if (entry.isIntersecting) {
           video.play().then(function() {
             if (poster) poster.classList.add('is-hidden');
             if (playBtn) playBtn.classList.add('is-hidden');
           }).catch(function() {});
-        } else {
-          video.pause();
-        }
+        } else { video.pause(); }
       });
     }, { threshold: 0.4 });
-
-    section.querySelectorAll('.vtr-media').forEach(function(m) { observer.observe(m); });
-
-    section.querySelectorAll('[data-vtr-play]').forEach(function(btn) {
+    section.querySelectorAll('.str-media').forEach(function(m) { observer.observe(m); });
+    section.querySelectorAll('[data-str-play]').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        var media = btn.closest('.vtr-media');
-        var video = media.querySelector('[data-vtr-video]');
-        if (video) {
-          video.play();
-          btn.classList.add('is-hidden');
-          var poster = media.querySelector('[data-vtr-poster]');
-          if (poster) poster.classList.add('is-hidden');
-        }
+        var media = btn.closest('.str-media');
+        var video = media.querySelector('[data-str-video]');
+        if (video) { video.play(); btn.classList.add('is-hidden'); var p=media.querySelector('[data-str-poster]'); if(p) p.classList.add('is-hidden'); }
       });
     });
   })();
@@ -215,18 +200,16 @@
 
 {% schema %}
 {
-  "name": "CP - Video + Tekst Rijen",
+  "name": "BL - Storytelling Rijen",
   "tag": "section",
   "class": "section",
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
     { "type": "select", "id": "heading_size", "options": [
-      { "value": "h2", "label": "Small" },
-      { "value": "h1", "label": "Medium" },
-      { "value": "h0", "label": "Large" }
+      { "value": "h2", "label": "Small" },{ "value": "h1", "label": "Medium" },{ "value": "h0", "label": "Large" }
     ], "default": "h1", "label": "Heading grootte" },
     { "type": "checkbox", "id": "alternate_layout", "label": "Automatisch afwisselen links/rechts", "default": true },
-    { "type": "range", "id": "media_radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 16, "label": "Media border radius" },
+    { "type": "range", "id": "media_radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 12, "label": "Media border radius" },
     { "type": "text", "id": "media_aspect_ratio", "label": "Media aspect ratio", "default": "4/3", "info": "Bijv. 4/3, 16/9, 1/1" },
     { "type": "color_scheme", "id": "color_scheme", "label": "Kleurenschema", "default": "scheme-1" },
     { "type": "header", "content": "Sectie padding" },
@@ -236,26 +219,26 @@
   "blocks": [
     {
       "type": "row",
-      "name": "Video/Tekst Rij",
+      "name": "Media + Tekst Rij",
       "settings": [
         { "type": "video", "id": "video", "label": "Video" },
         { "type": "image_picker", "id": "image", "label": "Afbeelding (of video cover)" },
-        { "type": "text", "id": "label", "label": "Label boven heading", "info": "Optioneel klein label" },
-        { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Zeg vaarwel tegen <em>nekklachten</em>" },
-        { "type": "richtext", "id": "text", "label": "Tekst", "default": "<p>Beschrijf hier het voordeel van je product.</p>" },
+        { "type": "text", "id": "label", "label": "Label (optioneel)" },
+        { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Waarom dit product?" },
+        { "type": "richtext", "id": "text", "label": "Tekst", "default": "<p>Beschrijf hier een uniek voordeel van je product.</p>" },
         { "type": "text", "id": "button_label", "label": "Knoptekst" },
         { "type": "url", "id": "button_link", "label": "Knoplink" },
-        { "type": "checkbox", "id": "reversed", "label": "Media rechts plaatsen", "default": false, "info": "Alleen als 'afwisselen' uit staat" }
+        { "type": "checkbox", "id": "reversed", "label": "Media rechts", "default": false, "info": "Alleen als afwisselen uit staat" }
       ]
     }
   ],
   "presets": [
     {
-      "name": "CP - Video + Tekst Rijen",
+      "name": "BL - Storytelling Rijen",
       "blocks": [
-        { "type": "row", "settings": { "heading": "Zeg vaarwel tegen <em>nekklachten</em>" } },
-        { "type": "row", "settings": { "heading": "Zo zacht als een wolkje, <em>maar niet te zacht</em>" } },
-        { "type": "row", "settings": { "heading": "Lekker koel in de zomer, <em>warm in de winter</em>" } }
+        { "type": "row", "settings": { "heading": "Ontdek wat het bijzonder maakt" } },
+        { "type": "row", "settings": { "heading": "Gemaakt met zorg voor detail" } },
+        { "type": "row", "settings": { "heading": "Perfect als cadeau" } }
       ]
     }
   ]
