@@ -104,11 +104,12 @@
   }
   .ugc-{{ section.id }} .ugc-nav--prev { left: 14px; }
   .ugc-{{ section.id }} .ugc-nav--next { right: 14px; }
-  @media screen and (min-width: 750px) {
-    .ugc-{{ section.id }} .ugc-nav { display: flex; }
-    .ugc-{{ section.id }} .ugc-nav--prev { left: 16px; }
-    .ugc-{{ section.id }} .ugc-nav--next { right: 16px; }
-  }
+
+  {% if section.settings.center_videos %}
+    .ugc-{{ section.id }} .ugc-track {
+      justify-content: center;
+    }
+  {% endif %}
   .ugc-{{ section.id }} .ugc-placeholder {
     position: absolute; inset: 0; display: flex; align-items: center;
     justify-content: center; background: #e8e8e8; color: #999; font-size: 14px;
@@ -190,8 +191,7 @@
           </div>
         {%- endfor -%}
       </div>
-      <button class="ugc-nav ugc-nav--prev" aria-label="Vorige" data-ugc-prev="{{ section.id }}"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-      <button class="ugc-nav ugc-nav--next" aria-label="Volgende" data-ugc-next="{{ section.id }}"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+      </div>
     </div>
   </div>
 </div>
@@ -231,15 +231,6 @@
         btn.querySelector('[data-ugc-icon-unmuted]').style.display = video.muted ? 'none' : 'block';
       });
     });
-
-    var prevBtn = document.querySelector('[data-ugc-prev="' + sectionId + '"]');
-    var nextBtn = document.querySelector('[data-ugc-next="' + sectionId + '"]');
-    var scrollAmt = function() {
-      var c = track.querySelector('.ugc-card');
-      return c ? c.offsetWidth + parseInt(getComputedStyle(track).gap || 16) : 300;
-    };
-    if (prevBtn) prevBtn.addEventListener('click', function() { track.scrollBy({ left: -scrollAmt(), behavior: 'smooth' }); });
-    if (nextBtn) nextBtn.addEventListener('click', function() { track.scrollBy({ left: scrollAmt(), behavior: 'smooth' }); });
   })();
 </script>
 
@@ -262,6 +253,7 @@
     { "type": "range", "id": "border_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 14, "label": "Border radius" },
     { "type": "header", "content": "Video settings" },
     { "type": "checkbox", "id": "loop", "default": true, "label": "Loop videos" },
+    { "type": "checkbox", "id": "center_videos", "default": true, "label": "Video's centreren op desktop" },
     { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
     { "type": "header", "content": "Section padding" },
     { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 36, "label": "Padding top" },

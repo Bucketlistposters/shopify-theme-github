@@ -33,13 +33,33 @@
   content: none !important;
 }
 
+/* Hover desktop */
 .product-form__submit.bl-btn:hover:not(:disabled) {
+  background-color: var(--bl-btn-hover-color) !important;
+}
+
+/* Active/tap state for mobile */
+.product-form__submit.bl-btn:active:not(:disabled) {
   background-color: var(--bl-btn-hover-color) !important;
 }
 
 .product-form__submit.bl-btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+/* Button icon + text layout */
+.bl-btn__text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.bl-btn__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 /* Loading spinner */
@@ -54,20 +74,6 @@
 .product-form__submit.bl-btn .bl-spinner path { opacity: 0.85; }
 
 .product-form__submit.bl-btn.loading .bl-btn__text { visibility: hidden; }
-
-/* Button icon */
-.bl-btn__text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.bl-btn__icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
 .product-form__submit.bl-btn.loading .bl-spinner {
   display: block;
   position: absolute;
@@ -85,4 +91,19 @@
 .product-form__buttons .shopify-payment-button__button {
   border-radius: var(--bl-btn-radius) !important;
   min-height: 52px !important;
+}
+
+/* ===== 2. Secondary product image on mobile ===== */
+@media screen and (max-width: 989px) {
+  .card-wrapper .media.media--hover-effect > img + img {
+    transition: opacity 0.3s ease;
+  }
+
+  .card-wrapper:active .media.media--hover-effect > img:first-child:not(:only-child) {
+    opacity: 0;
+  }
+
+  .card-wrapper:active .media.media--hover-effect > img + img {
+    opacity: 1;
+  }
 }
