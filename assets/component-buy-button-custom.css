@@ -1,37 +1,40 @@
 /* ===== BL Custom Add to Cart Button ===== */
-/* Pas de kleur aan via --bl-btn-color in je theme CSS of hier */
 
 :root {
-  --bl-btn-color: #121212;
+  --bl-btn-color: #FF7A15;
   --bl-btn-text-color: #ffffff;
-  --bl-btn-hover-color: #333333;
-  --bl-btn-radius: 9999px;
+  --bl-btn-hover-color: #121212;
+  --bl-btn-radius: 0px;
 }
 
-.product-form__submit.bl-btn {
+.product-form__submit.bl-btn,
+.product-form__submit.bl-btn.button--primary,
+.product-form__submit.bl-btn.button--secondary {
   background-color: var(--bl-btn-color) !important;
   color: var(--bl-btn-text-color) !important;
-  border: none !important;
-  outline: none !important;
+  border: 0 !important;
+  outline: 0 !important;
   box-shadow: none !important;
   border-radius: var(--bl-btn-radius) !important;
   min-height: 52px;
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  transition: background-color 0.2s ease, transform 0.15s ease;
+  transition: background-color 0.2s ease;
   position: relative;
   cursor: pointer;
   --border-opacity: 0 !important;
+  --alpha-button-background: 1 !important;
+}
+
+.product-form__submit.bl-btn::before,
+.product-form__submit.bl-btn::after {
+  display: none !important;
+  content: none !important;
 }
 
 .product-form__submit.bl-btn:hover:not(:disabled) {
   background-color: var(--bl-btn-hover-color) !important;
-  transform: translateY(-1px);
-}
-
-.product-form__submit.bl-btn:active:not(:disabled) {
-  transform: translateY(0);
 }
 
 .product-form__submit.bl-btn:disabled {
@@ -47,18 +50,10 @@
   animation: bl-spin 0.7s linear infinite;
 }
 
-.product-form__submit.bl-btn .bl-spinner circle {
-  opacity: 0.25;
-}
+.product-form__submit.bl-btn .bl-spinner circle { opacity: 0.25; }
+.product-form__submit.bl-btn .bl-spinner path { opacity: 0.85; }
 
-.product-form__submit.bl-btn .bl-spinner path {
-  opacity: 0.85;
-}
-
-.product-form__submit.bl-btn.loading .bl-btn__text {
-  visibility: hidden;
-}
-
+.product-form__submit.bl-btn.loading .bl-btn__text { visibility: hidden; }
 .product-form__submit.bl-btn.loading .bl-spinner {
   display: block;
   position: absolute;
@@ -72,7 +67,7 @@
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Dynamic checkout buttons underneath - match rounded style */
+/* Dynamic checkout button match */
 .product-form__buttons .shopify-payment-button__button {
   border-radius: var(--bl-btn-radius) !important;
   min-height: 52px !important;
