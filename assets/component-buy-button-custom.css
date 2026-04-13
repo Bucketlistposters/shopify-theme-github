@@ -1,0 +1,76 @@
+/* ===== BL Custom Add to Cart Button ===== */
+/* Pas de kleur aan via --bl-btn-color in je theme CSS of hier */
+
+:root {
+  --bl-btn-color: #121212;
+  --bl-btn-text-color: #ffffff;
+  --bl-btn-hover-color: #333333;
+  --bl-btn-radius: 9999px;
+}
+
+.product-form__submit.bl-btn {
+  background-color: var(--bl-btn-color) !important;
+  color: var(--bl-btn-text-color) !important;
+  border: none !important;
+  border-radius: var(--bl-btn-radius) !important;
+  min-height: 52px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.product-form__submit.bl-btn:hover:not(:disabled) {
+  background-color: var(--bl-btn-hover-color) !important;
+  transform: translateY(-1px);
+}
+
+.product-form__submit.bl-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.product-form__submit.bl-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Loading spinner */
+.product-form__submit.bl-btn .bl-spinner {
+  display: none;
+  width: 22px;
+  height: 22px;
+  animation: bl-spin 0.7s linear infinite;
+}
+
+.product-form__submit.bl-btn .bl-spinner circle {
+  opacity: 0.25;
+}
+
+.product-form__submit.bl-btn .bl-spinner path {
+  opacity: 0.85;
+}
+
+.product-form__submit.bl-btn.loading .bl-btn__text {
+  visibility: hidden;
+}
+
+.product-form__submit.bl-btn.loading .bl-spinner {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes bl-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Dynamic checkout buttons underneath - match rounded style */
+.product-form__buttons .shopify-payment-button__button {
+  border-radius: var(--bl-btn-radius) !important;
+  min-height: 52px !important;
+}
