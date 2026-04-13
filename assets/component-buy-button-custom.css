@@ -12,6 +12,8 @@
   background-color: var(--bl-btn-color) !important;
   color: var(--bl-btn-text-color) !important;
   border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   border-radius: var(--bl-btn-radius) !important;
   min-height: 52px;
   font-size: 16px;
@@ -20,6 +22,7 @@
   transition: background-color 0.2s ease, transform 0.15s ease;
   position: relative;
   cursor: pointer;
+  --border-opacity: 0 !important;
 }
 
 .product-form__submit.bl-btn:hover:not(:disabled) {
