@@ -54,6 +54,20 @@
 .product-form__submit.bl-btn .bl-spinner path { opacity: 0.85; }
 
 .product-form__submit.bl-btn.loading .bl-btn__text { visibility: hidden; }
+
+/* Button icon */
+.bl-btn__text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.bl-btn__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
 .product-form__submit.bl-btn.loading .bl-spinner {
   display: block;
   position: absolute;
