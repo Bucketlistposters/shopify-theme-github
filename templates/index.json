@@ -175,24 +175,12 @@
             "product": "",
             "author": ""
           }
-        },
-        "video_qRWWBj": {
-          "type": "video",
-          "settings": {
-            "video_url": "",
-            "show_stars": false,
-            "star_count": 5,
-            "review_text": "",
-            "product": "",
-            "author": ""
-          }
         }
       },
       "block_order": [
         "video_tqE6RP",
         "video_fxrJMR",
-        "video_WUL3cj",
-        "video_qRWWBj"
+        "video_WUL3cj"
       ],
       "name": "UGC Videos",
       "settings": {
