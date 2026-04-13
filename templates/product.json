@@ -48,7 +48,7 @@
             "show_gift_card_recipient": true
           }
         },
-        "custom_liquid_jqGgWV": {
+        "custom_liquid_yARmaK": {
           "type": "custom_liquid",
           "settings": {
             "custom_liquid": "<div class=\"product-benefits\">\n  <div class=\"product-benefits__list\">\n\n    <div class=\"product-benefits__item\">\n      <span class=\"product-benefits__icon\">🚚</span>\n      <span class=\"product-benefits__text\">Voor 12:00 besteld, volgende werkdag in huis</span>\n    </div>\n\n    <div class=\"product-benefits__item\">\n      <span class=\"product-benefits__icon\">🔁</span>\n      <span class=\"product-benefits__text\">Binnen 14 dagen retourneren</span>\n    </div>\n\n    <div class=\"product-benefits__item\">\n      <span class=\"product-benefits__icon\">💳</span>\n      <span class=\"product-benefits__text\">Betaal later met Klarna</span>\n    </div>\n\n  </div>\n</div>\n\n<style>\n.product-benefits {\n  background-color: #f5f5f5;\n  color: #1a1a1a;\n  padding: 16px 20px;\n  border-radius: 8px;\n  margin-top: 16px;\n  width: 100%;\n  margin-left: 0;\n}\n\n/* altijd onder elkaar */\n.product-benefits__list {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n}\n\n.product-benefits__item {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n\n.product-benefits__icon {\n  font-size: 18px;\n}\n\n.product-benefits__text {\n  font-weight: 600;\n  font-size: 14px;\n}\n\n/* kleiner en netjes op mobiel */\n@media (max-width: 749px) {\n  .product-benefits {\n    padding-left: 12px;\n    padding-right: 12px;\n  }\n  .product-benefits__text {\n    font-size: 12px;\n  }\n  .product-benefits__icon {\n    font-size: 16px;\n  }\n}\n</style>"
@@ -89,7 +89,7 @@
         "variant_picker",
         "inventory_kReyVp",
         "buy_buttons",
-        "custom_liquid_jqGgWV",
+        "custom_liquid_yARmaK",
         "collapsible_tab_RFh7kB",
         "collapsible_tab_UJhi66",
         "collapsible_tab_6KgP9k"
