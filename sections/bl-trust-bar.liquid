@@ -1,0 +1,168 @@
+{%- style -%}
+  .bl-trustbar {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+  .bl-trustbar__inner {
+    max-width: {{ settings.page_width | default: 1200 }}px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .bl-trustbar__items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 36px;
+  }
+  @media screen and (min-width: 750px) {
+    .bl-trustbar__items { gap: 12px 48px; }
+  }
+  .bl-trustbar__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: {{ section.settings.font_size }}px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .bl-trustbar__item svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+{%- endstyle -%}
+
+<div class="bl-trustbar">
+  <div class="bl-trustbar__inner">
+    <div class="bl-trustbar__items">
+      {%- for block in section.blocks -%}
+        <div class="bl-trustbar__item" {{ block.shopify_attributes }}>
+          {%- case block.settings.icon -%}
+            {%- when 'truck' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            {%- when 'shield' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            {%- when 'star' -%}
+              <svg viewBox="0 0 24 24" fill="{{ section.settings.icon_color }}" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            {%- when 'gift' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            {%- when 'heart' -%}
+              <svg viewBox="0 0 24 24" fill="{{ section.settings.icon_color }}" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            {%- when 'clock' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            {%- when 'return' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            {%- when 'check' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.icon_color }}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            {%- when 'nl_flag' -%}
+              <svg viewBox="0 0 24 16" width="24" height="16"><rect width="24" height="5.33" fill="#AE1C28"/><rect y="5.33" width="24" height="5.33" fill="#fff"/><rect y="10.67" width="24" height="5.33" fill="#21468B"/></svg>
+          {%- endcase -%}
+          <span>{{ block.settings.text }}</span>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BL Trust balk",
+  "tag": "section",
+  "class": "bl-trustbar-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Achtergrondkleur",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Tekstkleur",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icoonkleur",
+      "default": "#FF7A15"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 11,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Lettergrootte",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding boven",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding onder",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "USP item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icoon",
+          "options": [
+            { "value": "truck", "label": "Verzending" },
+            { "value": "shield", "label": "Veilig betalen" },
+            { "value": "star", "label": "Ster" },
+            { "value": "gift", "label": "Cadeau" },
+            { "value": "heart", "label": "Hart" },
+            { "value": "clock", "label": "Klok" },
+            { "value": "return", "label": "Retour" },
+            { "value": "check", "label": "Vinkje" },
+            { "value": "nl_flag", "label": "Nederlandse vlag" }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Tekst",
+          "default": "Gratis verzending"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BL Trust balk",
+      "blocks": [
+        { "type": "usp", "settings": { "icon": "truck", "text": "Gratis verzending NL & BE" } },
+        { "type": "usp", "settings": { "icon": "shield", "text": "Veilig betalen" } },
+        { "type": "usp", "settings": { "icon": "star", "text": "4.8/5 beoordeling" } },
+        { "type": "usp", "settings": { "icon": "return", "text": "14 dagen retour" } },
+        { "type": "usp", "settings": { "icon": "nl_flag", "text": "Nederlands bedrijf" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

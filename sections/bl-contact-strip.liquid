@@ -1,0 +1,282 @@
+{%- style -%}
+  .bl-contact-strip {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px 0 {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .bl-contact-strip {
+      padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    }
+  }
+  .bl-contact-strip__inner {
+    max-width: {{ settings.page_width | default: 1200 }}px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .bl-contact-strip__heading {
+    text-align: center;
+    margin: 0 0 8px;
+    font-size: 22px;
+  }
+  .bl-contact-strip__subtext {
+    text-align: center;
+    margin: 0 0 24px;
+    font-size: 14px;
+    opacity: 0.65;
+  }
+  .bl-contact-strip__grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .bl-contact-strip__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    background: {{ section.settings.card_bg }};
+    border-radius: 10px;
+    text-decoration: none;
+    color: {{ section.settings.text_color }};
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-width: 180px;
+    justify-content: center;
+  }
+  .bl-contact-strip__item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .bl-contact-strip__item svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .bl-contact-strip__social {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .bl-contact-strip__social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: {{ section.settings.card_bg }};
+    transition: background 0.2s, transform 0.2s;
+    text-decoration: none;
+  }
+  .bl-contact-strip__social a:hover {
+    background: {{ section.settings.accent_color }};
+    transform: translateY(-2px);
+  }
+  .bl-contact-strip__social svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: {{ section.settings.text_color }};
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .bl-contact-strip__social a:hover svg { stroke: #fff; }
+
+  /* KVK bar */
+  .bl-contact-strip__kvk {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.4;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+{%- endstyle -%}
+
+<div class="bl-contact-strip">
+  <div class="bl-contact-strip__inner">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="bl-contact-strip__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subtext != blank -%}
+      <p class="bl-contact-strip__subtext">{{ section.settings.subtext }}</p>
+    {%- endif -%}
+
+    <div class="bl-contact-strip__grid">
+      {%- if section.settings.email != blank -%}
+        <a href="mailto:{{ section.settings.email }}" class="bl-contact-strip__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.accent_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          {{ section.settings.email }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.phone != blank -%}
+        <a href="tel:{{ section.settings.phone | remove: ' ' }}" class="bl-contact-strip__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.accent_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.75.34 1.54.57 2.35.7A2 2 0 0 1 22 16.92z"/></svg>
+          {{ section.settings.phone }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.whatsapp != blank -%}
+        <a href="https://wa.me/{{ section.settings.whatsapp | remove: '+' | remove: ' ' | remove: '-' }}" target="_blank" rel="noopener" class="bl-contact-strip__item">
+          <svg viewBox="0 0 24 24" fill="{{ section.settings.accent_color }}" stroke="none" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.528 5.86L.06 23.49a.5.5 0 00.611.611l5.63-1.468A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 01-5.38-1.572l-.386-.232-3.336.87.87-3.336-.232-.386A9.94 9.94 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          WhatsApp
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_social -%}
+      <div class="bl-contact-strip__social">
+        {%- if settings.social_instagram_link != blank -%}
+          <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/></svg></a>
+        {%- endif -%}
+        {%- if settings.social_facebook_link != blank -%}
+          <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        {%- endif -%}
+        {%- if settings.social_tiktok_link != blank -%}
+          <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
+        {%- endif -%}
+        {%- if settings.social_youtube_link != blank -%}
+          <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.33 29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="{{ section.settings.card_bg }}"/></svg></a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.kvk != blank or section.settings.btw != blank -%}
+      <div class="bl-contact-strip__kvk">
+        {%- if section.settings.kvk != blank -%}<span>KVK: {{ section.settings.kvk }}</span>{%- endif -%}
+        {%- if section.settings.btw != blank -%}<span>BTW: {{ section.settings.btw }}</span>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BL Contact & social",
+  "tag": "section",
+  "class": "bl-contact-strip-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Koptekst",
+      "default": "Neem contact op"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtekst",
+      "default": "We reageren binnen 24 uur"
+    },
+    {
+      "type": "header",
+      "content": "Contactgegevens"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "E-mail",
+      "default": "info@bucketlistposters.nl"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Telefoon"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp",
+      "label": "WhatsApp (internationaal)",
+      "info": "Bijv: +31612345678"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Social media tonen",
+      "default": true,
+      "info": "Gebruikt links uit thema-instellingen"
+    },
+    {
+      "type": "header",
+      "content": "Bedrijfsgegevens"
+    },
+    {
+      "type": "text",
+      "id": "kvk",
+      "label": "KVK-nummer"
+    },
+    {
+      "type": "text",
+      "id": "btw",
+      "label": "BTW-nummer"
+    },
+    {
+      "type": "header",
+      "content": "Kleuren"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Achtergrond",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Tekst",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Knoppen achtergrond",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Icoonkleur",
+      "default": "#FF7A15"
+    },
+    {
+      "type": "header",
+      "content": "Ruimte"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding boven",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding onder",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "BL Contact & social"
+    }
+  ]
+}
+{% endschema %}
