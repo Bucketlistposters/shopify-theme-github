@@ -98,6 +98,7 @@
     },
     "related-products": {
       "type": "related-products",
+      "disabled": true,
       "custom_css": [],
       "settings": {
         "heading": "Bekijk ook eens",
