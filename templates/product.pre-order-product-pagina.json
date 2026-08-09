@@ -26,11 +26,10 @@
           "type": "price",
           "settings": {}
         },
-        "buy_buttons": {
-          "type": "buy_buttons",
+        "custom_liquid_an8qqx": {
+          "type": "custom_liquid",
           "settings": {
-            "show_dynamic_checkout": false,
-            "show_gift_card_recipient": true
+            "custom_liquid": "<form method=\"post\" action=\"/cart/add\">\n  <input type=\"hidden\" name=\"id\" value=\"{{ product.selected_or_first_available_variant.id }}\">\n  <button type=\"submit\" class=\"preorder-btn\">Pre-order </button>\n</form>\n\n<style>\n  .preorder-btn {\n    display: block;\n    width: 100%;\n    padding: 16px;\n    margin-top: 10px;\n    background-color: #ff6a00;\n    color: #fff;\n    border: none;\n    border-radius: 6px;\n    font-size: 16px;\n    font-weight: 600;\n    cursor: pointer;\n  }\n  .preorder-btn:hover { background-color: #e65f00; }\n</style>"
           }
         },
         "custom_liquid_yARmaK": {
@@ -71,7 +70,7 @@
         "custom_liquid_jMLcrC",
         "title",
         "price",
-        "buy_buttons",
+        "custom_liquid_an8qqx",
         "custom_liquid_yARmaK",
         "collapsible_tab_RFh7kB",
         "collapsible_tab_UJhi66",
